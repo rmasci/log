@@ -11,13 +11,14 @@ import (
 
 func main() {
 	logFile := "test.log"
+	dformat := "20060102-15:04:05.000 MST "
 	lf, err := os.OpenFile(logFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Printf("ERROR: Can't open logfile %v: %v\n", logFile, err)
 		os.Exit(1)
 	}
 	lgOut := log.New(lf, "", log.LstdFlags)
-	lgOut.Format = "-"
+	lgOut.Format = dformat
 	lgOut.SetOutput(&lumberjack.Logger{
 		Filename: logFile,
 		Compress: true,
